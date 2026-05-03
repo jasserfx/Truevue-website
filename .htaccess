@@ -4,6 +4,6 @@ RewriteEngine On
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# Force coming soon
-RewriteCond %{REQUEST_URI} !/coming-soon\.html$ [NC]
-RewriteRule ^.*$ /coming-soon.html [R=302,L]
+# Coming soon override
+RewriteCond %{REQUEST_URI} !^/Coming-Soon\.html$ [NC]
+RewriteRule ^.*$ /Coming-Soon.html [R=302,L]
