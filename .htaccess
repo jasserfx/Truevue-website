@@ -14,11 +14,11 @@ Options -Indexes
 # -----------------------------------
 # 3. CURRENT MODE: COMING SOON (ACTIVE SITE)
 # -----------------------------------
-#RewriteCond %{REQUEST_URI} !^/Coming-Soon\.html$ [NC]
-#RewriteCond %{REQUEST_URI} !^/css/
-#RewriteCond %{REQUEST_URI} !^/js/
-#RewriteCond %{REQUEST_URI} !^/images/
-#RewriteRule ^.*$ /Coming-Soon.html [R=302,L]
+RewriteCond %{REQUEST_URI} !^/Coming-Soon\.html$ [NC]
+RewriteCond %{REQUEST_URI} !^/css/
+RewriteCond %{REQUEST_URI} !^/js/
+RewriteCond %{REQUEST_URI} !^/images/
+RewriteRule ^.*$ /Coming-Soon.html [R=302,L]
 
 # -----------------------------------
 # 4. FUTURE MODE (HOME PAGE SETUP)
