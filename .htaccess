@@ -1,25 +1,19 @@
 RewriteEngine On
 
 # -----------------------------------
-# 1. FORCE HTTPS
+# FORCE HTTPS
 # -----------------------------------
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # -----------------------------------
-# 2. REMOVE .html FROM URLS
+# 1. REMOVE .html FROM BROWSER URL
 # -----------------------------------
 RewriteCond %{THE_REQUEST} \s/+(.+)\.html [NC]
 RewriteRule ^(.+)\.html$ /$1 [R=301,L]
 
 # -----------------------------------
-# 3. INTERNALLY LOAD .html FILES
+# 2. INTERNALLY LOAD .html FILES
 # -----------------------------------
-RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.+)$ $1.html [L]
-
-# -----------------------------------
-# 4. SET HOMEPAGE
-# -----------------------------------
-DirectoryIndex Home
