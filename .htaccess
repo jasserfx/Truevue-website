@@ -1,7 +1,26 @@
-DirectoryIndex home.html
-
 RewriteEngine On
 
-# Force HTTPS (optional)
+# -----------------------------------
+# 1. FORCE HTTPS
+# -----------------------------------
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# -----------------------------------
+# 2. DISABLE DIRECTORY LISTING
+# -----------------------------------
+Options -Indexes
+
+# -----------------------------------
+# 3. CURRENT MODE: COMING SOON (ACTIVE SITE)
+# -----------------------------------
+RewriteCond %{REQUEST_URI} !^/Coming-Soon\.html$ [NC]
+RewriteCond %{REQUEST_URI} !^/css/
+RewriteCond %{REQUEST_URI} !^/js/
+RewriteCond %{REQUEST_URI} !^/images/
+RewriteRule ^.*$ /Coming-Soon.html [R=302,L]
+
+# -----------------------------------
+# 4. FUTURE MODE (HOME PAGE SETUP)
+# -----------------------------------
+DirectoryIndex Home.html
