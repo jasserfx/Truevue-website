@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrueVue Studio</title>
+  <meta name="description" content="TrueVue is a full-service visual studio crafting cinematic photography and video that transforms brands into experiences.">
+  <link rel="icon" type="image/x-icon" href="https://lh3.googleusercontent.com/d/1F6qazQYGRjPtAotPG7sIPEV7GcKzMQvG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/nav-footer.css">
+  <style>
+    /* ── HOME-SPECIFIC STYLES ──────────────────────── */
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100vh; min-height: 700px;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg,#0d0f1a 0%,#1a1d2e 40%,#171d1c 70%,#0e1615 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(88,99,248,0.05) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(88,99,248,0.05) 1px,transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+    }
+    .hero-orb {
+      position: absolute;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle,rgba(88,99,248,0.2) 0%,transparent 70%);
+      left: 50%; top: 50%; transform: translate(-50%,-50%);
+      animation: pulse 6s ease-in-out infinite;
+    }
+    .hero-orb-2 {
+      position: absolute;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle,rgba(88,99,248,0.12) 0%,transparent 70%);
+      right: 15%; top: 20%;
+      animation: pulse2 8s ease-in-out 2s infinite;
+    }
+    @keyframes pulse  { 0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)} }
+    @keyframes pulse2 { 0%,100%{opacity:.4;transform:scale(1)} 50%{opacity:.8;transform:scale(1.1)} }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center; padding: 0 40px; max-width: 920px;
+      animation: heroIn 1.4s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes heroIn { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--main); margin-bottom: 28px;
+      border: 1px solid rgba(88,99,248,0.35); padding: 6px 18px; border-radius: 100px;
+      backdrop-filter: blur(10px); background: rgba(88,99,248,0.08);
+    }
+    .hero-title {
+      font-size: clamp(56px,8vw,110px); font-weight: 800;
+      line-height: 0.92; letter-spacing: -0.02em; margin-bottom: 32px;
+    }
+    .hero-title em { font-style: italic; color: var(--main); }
+    .hero-sub {
+      font-size: 17px; font-weight: 300;
+      color: rgba(255,255,255,0.55); line-height: 1.65;
+      max-width: 520px; margin: 0 auto 48px;
+    }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.3); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .hero-scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom,rgba(88,99,248,0.8),transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine { 0%,100%{opacity:.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(.6)} }
+
+    /* ABOUT */
+    .about-section {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; padding: 120px 80px;
+      background: linear-gradient(180deg,var(--black) 0%,#0e1218 100%);
+      align-items: start;
+    }
+    .about-block p {
+      font-size: 16px; font-weight: 300;
+      color: rgba(255,255,255,0.55); line-height: 1.8; margin-top: 16px;
+    }
+
+    @media(max-width:900px){
+      .hero-content { padding: 0 24px; }
+      .about-section { grid-template-columns: 1fr; padding: 80px 24px; gap: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav injected here -->
+<div id="nav-slot"></div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-orb-2"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Visual Storytelling Studio</span>
+    <h1 class="hero-title">TrueVue<br><em>the Correct</em><br>View.</h1>
+    <p class="hero-sub">We craft cinematic visuals that transform brands into experiences - photography and video that make the world stop and stare.</p>
+    <div class="hero-btns">
+      <a href="contact.html" class="btn-primary">Start a Project</a>
+      <a href="services.html" class="btn-ghost">Our Services</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+
+
+<!--ABOUT-->
+<section class="about-section">
+  <div class="about-block reveal">
+    <span class="section-label">Our Story</span>
+    <h2 class="section-title">Who We <em>Are</em></h2>
+    <div class="divider"></div>
+    <p>TrueVue Studio is a full-service visual production studio dedicated to delivering high-quality audiovisual and photographic content. We bring together creative direction, technical expertise, and a deep understanding of visual communication to craft impactful visuals that elevate brands, businesses, and personal projects.</p>
+    <p style="margin-top:16px;">With a comprehensive approach to content creation, we handle every stage of production from concept development to final delivery ensuring consistency, precision, and excellence in every project. Our work is driven by a commitment to detail, storytelling, and creating visuals that leave a lasting impression.</p>
+  </div>
+  <div class="about-block reveal reveal-delay-1">
+    <span class="section-label">Our Practice</span>
+    <h2 class="section-title">What We <em>Do</em></h2>
+    <div class="divider"></div>
+    <p>At TrueVue Studio, we provide end-to-end visual production services tailored to meet a wide range of client needs. Our expertise covers video production, including filming, editing, and post-production, as well as professional photography, from shooting to retouching and final output. We also specialize in creating digital and visual content designed for marketing, advertising, and brand communication across multiple platforms.</p>
+    <p style="margin-top:16px;">In addition, we offer comprehensive coverage for events of all kinds, alongside the creation of tailored visual content for businesses, products, real estate, hospitality, and more. Every project is approached with a focus on quality, creativity, and delivering visuals that effectively communicate and enhance our clients’ presence.</p>
+  </div>
+</section>
+
+<!--TESTIMONIALS-->
+<div class="testimonials-section" data-testimonials>
+  <div class="testimonials-header reveal">
+    <span class="section-label">Client Stories</span>
+    <h2 class="section-title">What They <em>Say</em></h2>
+  </div>
+  <div class="testimonials-track reveal reveal-delay-1">
+  </div>
+</div>
+
+<!--CTA BLOCK-->
+<div class="contact-inline">
+  <h2 class="section-title-light">Ready to Create<br><em>Something Unforgettable?</em></h2>
+  <p>Tell us about your project and let's bring your vision to life.</p>
+  <a href="contact.html" class="btn-white">Start the Conversation</a>
+</div>
+
+<div id="footer-slot"></div>
+
+<script src="js/components.js"></script>
+</body>
+</html>

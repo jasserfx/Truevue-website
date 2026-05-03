@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Project Brief — TrueVue Studio</title>
+</head>
+<body style="margin:0;padding:0;background:#0f1210;font-family:'Helvetica Neue',Arial,sans-serif;">
+
+<!-- Preheader (hidden preview text) -->
+<div style="display:none;max-height:0;overflow:hidden;font-size:1px;color:#0f1210;">
+  New project brief from {{firstName}} {{lastName}} — {{company}}
+</div>
+
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#0f1210;padding:40px 20px;">
+  <tr>
+    <td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+
+        <!-- LOGO / HEADER -->
+        <tr>
+          <td align="center" style="padding-bottom:32px;">
+            <img
+              src="https://lh3.googleusercontent.com/d/1pm_MJJWF3hmj6_qAeoyDu0V3Vwl7W7Vz"
+              alt="TrueVue Studio"
+              width="140"
+              style="display:block;height:auto;"
+            >
+          </td>
+        </tr>
+
+        <!-- TOP ACCENT BAR -->
+        <tr>
+          <td style="background:linear-gradient(90deg,#5863f8,#3d46d6);height:3px;border-radius:3px 3px 0 0;"></td>
+        </tr>
+
+        <!-- MAIN CARD -->
+        <tr>
+          <td style="background:#171d1c;border-radius:0 0 16px 16px;padding:48px 48px 40px;border:1px solid rgba(255,255,255,0.06);border-top:none;">
+
+            <!-- Title -->
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#5863f8;">New Inquiry</p>
+                  <h1 style="margin:0 0 8px;font-size:28px;font-weight:700;color:#ffffff;line-height:1.2;">
+                    Project Brief Received
+                  </h1>
+                  <p style="margin:0 0 36px;font-size:15px;color:rgba(255,255,255,0.45);line-height:1.6;">
+                    A new client has submitted their project details via the TrueVue Studio website.
+                  </p>
+                </td>
+              </tr>
+            </table>
+
+            <!-- CLIENT INFO BLOCK -->
+            <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(88,99,248,0.06);border:1px solid rgba(88,99,248,0.2);border-radius:12px;padding:24px;margin-bottom:28px;">
+              <tr>
+                <td>
+                  <p style="margin:0 0 16px;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#5863f8;">Client Information</p>
+                  <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td width="50%" style="padding-bottom:12px;vertical-align:top;">
+                        <p style="margin:0 0 3px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Name</p>
+                        <p style="margin:0;font-size:15px;font-weight:500;color:#ffffff;">{{firstName}} {{lastName}}</p>
+                      </td>
+                      <td width="50%" style="padding-bottom:12px;vertical-align:top;">
+                        <p style="margin:0 0 3px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Company</p>
+                        <p style="margin:0;font-size:15px;font-weight:500;color:#ffffff;">{{company}}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="50%" style="padding-bottom:4px;vertical-align:top;">
+                        <p style="margin:0 0 3px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Email</p>
+                        <p style="margin:0;">
+                          <a href="mailto:{{email}}" style="font-size:14px;color:#5863f8;text-decoration:none;">{{email}}</a>
+                        </p>
+                      </td>
+                      <td width="50%" style="padding-bottom:4px;vertical-align:top;">
+                        <p style="margin:0 0 3px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Phone</p>
+                        <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.7);">{{phone}}</p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <!-- PROJECT DETAILS -->
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
+              <tr>
+                <td style="padding-bottom:16px;">
+                  <p style="margin:0 0 8px;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);">About the Project</p>
+                  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:20px;">
+                    <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.75;">{{project}}</p>
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+            <!-- LOGISTICS GRID -->
+            <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:20px;margin-bottom:32px;">
+              <tr>
+                <td>
+                  <p style="margin:0 0 16px;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);">Project Logistics</p>
+                  <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td width="50%" style="padding-bottom:14px;">
+                        <p style="margin:0 0 3px;font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;">Shoot Date</p>
+                        <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.7);">{{shootDate}}</p>
+                      </td>
+                      <td width="50%" style="padding-bottom:14px;">
+                        <p style="margin:0 0 3px;font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;">Delivery Deadline</p>
+                        <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.7);">{{deadline}}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="50%">
+                        <p style="margin:0 0 3px;font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;">Budget Range</p>
+                        <p style="margin:0;font-size:14px;font-weight:500;color:#5863f8;">{{budget}}</p>
+                      </td>
+                      <td width="50%">
+                        <p style="margin:0 0 3px;font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;">Company Size</p>
+                        <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.7);">{{companySize}}</p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <!-- CTA BUTTON -->
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td align="center">
+                  <a href="mailto:{{email}}?subject=Re: Your Project Brief — TrueVue Studio"
+                     style="display:inline-block;background:#5863f8;color:#ffffff;text-decoration:none;padding:16px 40px;border-radius:100px;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">
+                    Reply to {{firstName}} →
+                  </a>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+          <td align="center" style="padding:32px 0 8px;">
+            <p style="margin:0 0 8px;font-size:12px;color:rgba(255,255,255,0.2);">
+              TrueVue Studio · Sousse, Tunisia
+            </p>
+            <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.15);">
+              This email was sent automatically when a client submitted the contact form at
+              <a href="https://truevuestudio.com" style="color:rgba(255,255,255,0.2);text-decoration:none;">truevuestudio.com</a>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

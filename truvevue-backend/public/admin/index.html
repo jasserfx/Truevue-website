@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrueVue Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --main: #5863f8;
+      --main-glow: rgba(88,99,248,0.35);
+      --black: #0b0d14;
+      --surface: #0f1117;
+      --surface2: #141720;
+      --border: rgba(255,255,255,0.07);
+      --text: rgba(255,255,255,0.85);
+      --muted: rgba(255,255,255,0.4);
+      --danger: #f85858;
+      --success: #58f8a0;
+    }
+    html, body { height: 100%; }
+    body { font-family: 'Poppins', sans-serif; background: var(--black); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── LOGIN ── */
+    #loginScreen {
+      position: fixed; inset: 0; z-index: 100;
+      background: linear-gradient(135deg,#0d0f1a,#1a1d2e,#0e1615);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .login-card {
+      width: 100%; max-width: 400px; padding: 48px 40px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+    }
+    .login-logo { text-align: center; margin-bottom: 36px; }
+    .login-logo h1 { font-size: 22px; font-weight: 300; }
+    .login-logo h1 em { font-style: italic; color: var(--main); }
+    .login-logo p { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+    .login-field { margin-bottom: 16px; }
+    .login-field label { display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .login-field input {
+      width: 100%; padding: 13px 16px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text); font-family: 'Poppins',sans-serif; font-size: 14px;
+      outline: none; transition: border-color .25s, box-shadow .25s;
+    }
+    .login-field input:focus { border-color: rgba(88,99,248,0.5); box-shadow: 0 0 0 3px rgba(88,99,248,0.1); }
+    .login-btn {
+      width: 100%; padding: 14px; margin-top: 8px;
+      background: var(--main); color: #fff; border: none; border-radius: 10px;
+      font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+      transition: background .25s, transform .2s, box-shadow .25s;
+    }
+    .login-btn:hover { background: #6e78ff; transform: translateY(-2px); box-shadow: 0 10px 30px var(--main-glow); }
+    .login-error { color: var(--danger); font-size: 13px; text-align: center; margin-top: 12px; min-height: 20px; }
+
+    /* ── SIDEBAR ── */
+    #sidebar {
+      width: 240px; flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      padding: 28px 0;
+    }
+    .sidebar-brand { padding: 0 24px 28px; border-bottom: 1px solid var(--border); }
+    .sidebar-brand h2 { font-size: 16px; font-weight: 300; }
+    .sidebar-brand h2 em { font-style: italic; color: var(--main); }
+    .sidebar-brand p { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+    .sidebar-nav { flex: 1; padding: 20px 12px; display: flex; flex-direction: column; gap: 2px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 14px; border-radius: 10px;
+      font-size: 13px; font-weight: 400; color: var(--muted);
+      cursor: pointer; transition: all .2s; position: relative;
+      border: none; background: none; text-align: left; width: 100%;
+    }
+    .nav-item:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .nav-item.active { color: var(--main); background: rgba(88,99,248,0.12); }
+    .nav-item i { width: 16px; text-align: center; }
+    .badge {
+      margin-left: auto; background: var(--main); color: #fff;
+      font-size: 10px; font-weight: 600; border-radius: 100px;
+      padding: 2px 7px; min-width: 18px; text-align: center;
+    }
+    .sidebar-footer { padding: 20px 24px; border-top: 1px solid var(--border); }
+    .logout-btn {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: var(--muted); cursor: pointer;
+      border: none; background: none; font-family: 'Poppins',sans-serif; padding: 0;
+      transition: color .2s;
+    }
+    .logout-btn:hover { color: var(--danger); }
+
+    /* ── MAIN ── */
+    #main { flex: 1; overflow-y: auto; }
+    .panel { display: none; padding: 40px; }
+    .panel.active { display: block; }
+    .panel-header { margin-bottom: 36px; }
+    .panel-header h2 { font-size: 24px; font-weight: 300; }
+    .panel-header h2 em { font-style: italic; color: var(--main); }
+    .panel-header p { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+    /* ── CARDS / GRID ── */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card {
+      padding: 24px; background: var(--surface2);
+      border: 1px solid var(--border); border-radius: 14px;
+    }
+    .stat-card .stat-val { font-size: 32px; font-weight: 600; color: var(--main); }
+    .stat-card .stat-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+    /* ── FORM FIELDS ── */
+    .field-group { margin-bottom: 20px; }
+    .field-label { display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .field-input, .field-textarea, .field-select {
+      width: 100%; padding: 12px 16px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text);
+      font-family: 'Poppins',sans-serif; font-size: 14px; font-weight: 300;
+      outline: none; transition: border-color .25s, box-shadow .25s;
+    }
+    .field-input:focus, .field-textarea:focus { border-color: rgba(88,99,248,0.5); box-shadow: 0 0 0 3px rgba(88,99,248,0.1); }
+    .field-textarea { resize: vertical; min-height: 100px; }
+    .field-hint { font-size: 11px; color: var(--muted); margin-top: 6px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    /* ── SECTION CARD ── */
+    .section-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px; margin-bottom: 24px;
+    }
+    .section-card-title {
+      font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--main); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+    }
+    .section-card-title i { font-size: 14px; }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 24px; background: var(--main); color: #fff;
+      border: none; border-radius: 10px; cursor: pointer;
+      font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      transition: background .25s, transform .2s, box-shadow .25s;
+    }
+    .btn-primary:hover { background: #6e78ff; transform: translateY(-1px); box-shadow: 0 8px 24px var(--main-glow); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 24px; background: transparent; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 10px; cursor: pointer;
+      font-family: 'Poppins',sans-serif; font-size: 13px;
+      transition: all .2s;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+    .btn-danger {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; background: rgba(248,88,88,0.12); color: var(--danger);
+      border: 1px solid rgba(248,88,88,0.25); border-radius: 8px; cursor: pointer;
+      font-family: 'Poppins',sans-serif; font-size: 12px; transition: all .2s;
+    }
+    .btn-danger:hover { background: rgba(248,88,88,0.2); }
+    .btn-sm {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; background: rgba(88,99,248,0.12); color: var(--main);
+      border: 1px solid rgba(88,99,248,0.2); border-radius: 8px; cursor: pointer;
+      font-family: 'Poppins',sans-serif; font-size: 12px; transition: all .2s;
+    }
+    .btn-sm:hover { background: rgba(88,99,248,0.2); }
+    .save-bar {
+      display: flex; align-items: center; gap: 12px; margin-top: 28px;
+    }
+    .save-msg { font-size: 13px; color: var(--success); opacity: 0; transition: opacity .3s; }
+    .save-msg.show { opacity: 1; }
+
+    /* ── CONTACTS TABLE ── */
+    .contacts-table { width: 100%; border-collapse: collapse; }
+    .contacts-table th {
+      padding: 10px 14px; text-align: left;
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); border-bottom: 1px solid var(--border); font-weight: 500;
+    }
+    .contacts-table td {
+      padding: 14px; font-size: 13px; font-weight: 300;
+      border-bottom: 1px solid var(--border); vertical-align: top;
+      color: rgba(255,255,255,0.75);
+    }
+    .contacts-table tr:last-child td { border-bottom: none; }
+    .contacts-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .contact-unread td:first-child { border-left: 2px solid var(--main); }
+    .tag-unread { display: inline-block; background: rgba(88,99,248,0.15); color: var(--main); font-size: 10px; padding: 2px 8px; border-radius: 100px; letter-spacing: .08em; }
+
+    /* ── CONTACT MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 36px; max-width: 560px; width: 90%;
+      max-height: 80vh; overflow-y: auto;
+    }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .modal-header h3 { font-size: 18px; font-weight: 300; }
+    .modal-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 18px; }
+    .modal-row { display: flex; gap: 8px; margin-bottom: 12px; font-size: 13px; }
+    .modal-row strong { color: var(--muted); font-weight: 400; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; width: 90px; flex-shrink: 0; padding-top: 1px; }
+    .modal-project { margin-top: 16px; padding: 16px; background: rgba(88,99,248,0.07); border-radius: 10px; border: 1px solid rgba(88,99,248,0.15); font-size: 14px; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,0.75); }
+
+    /* ── TESTIMONIALS ── */
+    .testimonial-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; margin-bottom: 12px;
+    }
+    .testimonial-item-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .t-name { font-size: 13px; font-weight: 500; }
+    .t-role { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    /* ── IMAGE UPLOAD ── */
+    .img-upload-area {
+      border: 2px dashed var(--border); border-radius: 12px;
+      padding: 32px; text-align: center; cursor: pointer;
+      transition: border-color .25s;
+    }
+    .img-upload-area:hover { border-color: rgba(88,99,248,0.4); }
+    .img-upload-area i { font-size: 28px; color: var(--muted); margin-bottom: 10px; }
+    .img-upload-area p { font-size: 13px; color: var(--muted); }
+    .img-preview { margin-top: 12px; }
+    .img-preview img { max-width: 200px; border-radius: 8px; }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      padding: 14px 20px; border-radius: 12px; font-size: 13px;
+      display: none; animation: toastIn .3s ease;
+    }
+    #toast.success { background: rgba(88,248,160,0.15); border: 1px solid rgba(88,248,160,0.3); color: var(--success); }
+    #toast.error { background: rgba(248,88,88,0.15); border: 1px solid rgba(248,88,88,0.3); color: var(--danger); }
+    @keyframes toastIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── CHANGE PASSWORD ── */
+    .pw-section { max-width: 400px; }
+
+    @media(max-width:768px){
+      #sidebar { display: none; }
+      .panel { padding: 24px; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <h1>TrueVue <em>Admin</em></h1>
+      <p>Studio Control Panel</p>
+    </div>
+    <div class="login-field">
+      <label>Username</label>
+      <input type="text" id="loginUser" placeholder="admin" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="login-btn" onclick="login()">Sign In</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-brand">
+    <h2>TrueVue <em>Admin</em></h2>
+    <p>Studio Panel</p>
+  </div>
+  <div class="sidebar-nav">
+    <button class="nav-item active" onclick="showPanel('dashboard')">
+      <i class="fa-solid fa-gauge-high"></i> Dashboard
+    </button>
+    <button class="nav-item" onclick="showPanel('contacts')">
+      <i class="fa-solid fa-inbox"></i> Inquiries
+      <span class="badge" id="unreadBadge" style="display:none">0</span>
+    </button>
+    <button class="nav-item" onclick="showPanel('content')">
+      <i class="fa-solid fa-pen-nib"></i> Site Content
+    </button>
+    <button class="nav-item" onclick="showPanel('testimonials')">
+      <i class="fa-solid fa-star"></i> Testimonials
+    </button>
+    <button class="nav-item" onclick="showPanel('settings')">
+      <i class="fa-solid fa-gear"></i> Settings
+    </button>
+  </div>
+  <div class="sidebar-footer">
+    <button class="logout-btn" onclick="logout()">
+      <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+    </button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+
+  <!-- DASHBOARD -->
+  <div class="panel active" id="panel-dashboard">
+    <div class="panel-header">
+      <h2>Welcome back, <em>Admin</em></h2>
+      <p>Here's what's happening with TrueVue Studio</p>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-val" id="statTotal">—</div>
+        <div class="stat-label">Total Inquiries</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="statUnread">—</div>
+        <div class="stat-label">Unread</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="statWeek">—</div>
+        <div class="stat-label">This Week</div>
+      </div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-title"><i class="fa-solid fa-clock-rotate-left"></i> Recent Inquiries</div>
+      <div id="recentContacts"></div>
+    </div>
+  </div>
+
+  <!-- CONTACTS -->
+  <div class="panel" id="panel-contacts">
+    <div class="panel-header">
+      <h2>Project <em>Inquiries</em></h2>
+      <p>All contact form submissions from your website</p>
+    </div>
+    <div class="section-card" style="overflow-x:auto">
+      <table class="contacts-table" id="contactsTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="contactsBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="panel" id="panel-content">
+    <div class="panel-header">
+      <h2>Site <em>Content</em></h2>
+      <p>Edit your website text, links and contact information</p>
+    </div>
+
+    <!-- HERO -->
+    <div class="section-card">
+      <div class="section-card-title"><i class="fa-solid fa-house"></i> Hero Section</div>
+      <div class="grid-2">
+        <div class="field-group">
+          <label class="field-label">Main Title</label>
+          <input class="field-input" id="c-hero_title" placeholder="TrueVue the Correct View.">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Subtitle</label>
+          <input class="field-input" id="c-hero_subtitle" placeholder="We craft cinematic visuals...">
+        </div>
+        <div class="field-group">
+          <label class="field-label">CTA Button Text</label>
+          <input class="field-input" id="c-hero_cta_text" placeholder="Start a Project">
+        </div>
+        <div class="field-group">
+          <label class="field-label">CTA Button Link</label>
+          <input class="field-input" id="c-hero_cta_link" placeholder="contact.html">
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="section-card">
+      <div class="section-card-title"><i class="fa-solid fa-circle-info"></i> About Section</div>
+      <div class="field-group">
+        <label class="field-label">About — Left Column (Who We Are)</label>
+        <textarea class="field-textarea" id="c-about_text" rows="5"></textarea>
+      </div>
+    </div>
+
+    <!-- CONTACT INFO -->
+    <div class="section-card">
+      <div class="section-card-title"><i class="fa-solid fa-address-card"></i> Contact Information</div>
+      <div class="grid-2">
+        <div class="field-group">
+          <label class="field-label">Display Email</label>
+          <input class="field-input" id="c-contact_email" placeholder="Contact@truevuestudio.com">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Phone</label>
+          <input class="field-input" id="c-contact_phone" placeholder="+216 94 644 226">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Address</label>
+          <input class="field-input" id="c-contact_address" placeholder="Sousse, Tunisia">
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL -->
+    <div class="section-card">
+      <div class="section-card-title"><i class="fa-solid fa-share-nodes"></i> Social Links</div>
+      <div class="grid-2">
+        <div class="field-group">
+          <label class="field-label"><i class="fa-brands fa-instagram"></i> Instagram URL</label>
+          <input class="field-input" id="c-social_instagram" placeholder="https://instagram.com/truevuestudio">
+        </div>
+        <div class="field-group">
+          <label class="field-label"><i class="fa-brands fa-facebook"></i> Facebook URL</label>
+          <input class="field-input" id="c-social_facebook" placeholder="https://facebook.com/...">
+        </div>
+        <div class="field-group">
+          <label class="field-label"><i class="fa-brands fa-linkedin"></i> LinkedIn URL</label>
+          <input class="field-input" id="c-social_linkedin" placeholder="https://linkedin.com/...">
+        </div>
+        <div class="field-group">
+          <label class="field-label"><i class="fa-brands fa-x-twitter"></i> Twitter / X URL</label>
+          <input class="field-input" id="c-social_twitter" placeholder="https://twitter.com/...">
+        </div>
+      </div>
+    </div>
+
+    <!-- META -->
+    <div class="section-card">
+      <div class="section-card-title"><i class="fa-solid fa-magnifying-glass"></i> SEO & Meta</div>
+      <div class="field-group">
+        <label class="field-label">Site Name</label>
+        <input class="field-input" id="c-site_name" placeholder="TrueVue Studio">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Meta Description</label>
+        <textarea class="field-textarea" id="c-meta_description" rows="3"></textarea>
+        <p class="field-hint">Shown in Google search results. Keep under 160 characters.</p>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Footer Text</label>
+        <input class="field-input" id="c-footer_text" placeholder="© 2025 TrueVue Studio. All rights reserved.">
+      </div>
+    </div>
+
+    <div class="save-bar">
+      <button class="btn-primary" onclick="saveContent()"><i class="fa-solid fa-floppy-disk"></i> Save All Changes</button>
+      <span class="save-msg" id="contentSaveMsg">✓ Saved successfully</span>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="panel" id="panel-testimonials">
+    <div class="panel-header">
+      <h2>Client <em>Testimonials</em></h2>
+      <p>Manage the reviews shown on your homepage</p>
+    </div>
+    <div id="testimonialsList"></div>
+    <button class="btn-primary" onclick="addTestimonial()" style="margin-bottom:24px">
+      <i class="fa-solid fa-plus"></i> Add Testimonial
+    </button>
+    <div class="save-bar">
+      <button class="btn-primary" onclick="saveTestimonials()"><i class="fa-solid fa-floppy-disk"></i> Save Testimonials</button>
+      <span class="save-msg" id="tSaveMsg">✓ Saved</span>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="panel" id="panel-settings">
+    <div class="panel-header">
+      <h2>Account <em>Settings</em></h2>
+      <p>Change your admin password</p>
+    </div>
+    <div class="section-card pw-section">
+      <div class="section-card-title"><i class="fa-solid fa-lock"></i> Change Password</div>
+      <div class="field-group">
+        <label class="field-label">Current Password</label>
+        <input type="password" class="field-input" id="pw-current">
+      </div>
+      <div class="field-group">
+        <label class="field-label">New Password</label>
+        <input type="password" class="field-input" id="pw-new">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Confirm New Password</label>
+        <input type="password" class="field-input" id="pw-confirm">
+      </div>
+      <div class="save-bar">
+        <button class="btn-primary" onclick="changePassword()"><i class="fa-solid fa-key"></i> Update Password</button>
+        <span class="save-msg" id="pwSaveMsg">✓ Password updated</span>
+      </div>
+    </div>
+    <div class="section-card" style="margin-top:24px">
+      <div class="section-card-title"><i class="fa-solid fa-circle-info"></i> Backend Info</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.8">
+        API Base: <code style="color:var(--main)">/api</code><br>
+        Contact form endpoint: <code style="color:var(--main)">POST /api/contact</code><br>
+        Content API: <code style="color:var(--main)">GET /api/content</code><br>
+        See <strong>README.md</strong> for full deployment guide.
+      </p>
+    </div>
+  </div>
+
+</main>
+
+<!-- CONTACT MODAL -->
+<div class="modal-overlay" id="contactModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Inquiry Details</h3>
+      <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+  const API = '';  // relative — same origin
+  let token = localStorage.getItem('tv_token');
+  let contacts = [];
+  let testimonials = [];
+  let siteContent = {};
+
+  // ── Auth ──────────────────────────────────────────────
+  async function login() {
+    const user = document.getElementById('loginUser').value;
+    const pass = document.getElementById('loginPass').value;
+    document.getElementById('loginError').textContent = '';
+    try {
+      const r = await fetch(`${API}/api/auth/login`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({username: user, password: pass})
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'Login failed');
+      token = d.token;
+      localStorage.setItem('tv_token', token);
+      document.getElementById('loginScreen').style.display = 'none';
+      initApp();
+    } catch(e) {
+      document.getElementById('loginError').textContent = e.message;
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem('tv_token');
+    location.reload();
+  }
+
+  async function authFetch(url, opts = {}) {
+    const r = await fetch(url, {
+      ...opts,
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json', ...(opts.headers || {}) }
+    });
+    if (r.status === 401 || r.status === 403) { logout(); return null; }
+    return r;
+  }
+
+  // ── Init ──────────────────────────────────────────────
+  async function initApp() {
+    if (!token) return;
+    // Verify token
+    const r = await fetch(`${API}/api/auth/me`, { headers: {'Authorization': `Bearer ${token}`} });
+    if (!r.ok) { localStorage.removeItem('tv_token'); return; }
+    document.getElementById('loginScreen').style.display = 'none';
+    await Promise.all([loadContacts(), loadContent(), loadTestimonials()]);
+    renderDashboard();
+  }
+
+  // ── Navigation ────────────────────────────────────────
+  function showPanel(name) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    document.getElementById(`panel-${name}`).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  // ── Contacts ──────────────────────────────────────────
+  async function loadContacts() {
+    const r = await authFetch(`${API}/api/contact`);
+    if (!r) return;
+    contacts = await r.json();
+    renderContacts();
+    updateBadge();
+  }
+
+  function updateBadge() {
+    const unread = contacts.filter(c => !c.read).length;
+    const badge = document.getElementById('unreadBadge');
+    badge.textContent = unread;
+    badge.style.display = unread > 0 ? 'inline-block' : 'none';
+  }
+
+  function renderContacts() {
+    const tbody = document.getElementById('contactsBody');
+    if (contacts.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:40px">No inquiries yet</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = contacts.map(c => `
+      <tr class="${c.read ? '' : 'contact-unread'}" style="cursor:pointer" onclick="openContact('${c.id}')">
+        <td>${c.firstName} ${c.lastName}</td>
+        <td>${c.company}</td>
+        <td><a href="mailto:${c.email}" style="color:var(--main);text-decoration:none" onclick="event.stopPropagation()">${c.email}</a></td>
+        <td style="color:var(--muted)">${fmtDate(c.submittedAt)}</td>
+        <td>${c.read ? '' : '<span class="tag-unread">New</span>'}</td>
+        <td>
+          <button class="btn-danger" onclick="event.stopPropagation();deleteContact('${c.id}')">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  async function openContact(id) {
+    const c = contacts.find(x => x.id === id);
+    if (!c) return;
+    document.getElementById('modalTitle').textContent = `${c.firstName} ${c.lastName} — ${c.company}`;
+    document.getElementById('modalBody').innerHTML = `
+      <div class="modal-row"><strong>Email</strong><a href="mailto:${c.email}" style="color:var(--main)">${c.email}</a></div>
+      <div class="modal-row"><strong>Phone</strong>${c.phone}</div>
+      <div class="modal-row"><strong>Company</strong>${c.company}</div>
+      <div class="modal-row"><strong>Size</strong>${c.companySize}</div>
+      <div class="modal-row"><strong>Date</strong>${fmtDate(c.submittedAt)}</div>
+      <div class="modal-project">${c.project.replace(/\n/g,'<br>')}</div>
+      <div style="margin-top:20px;display:flex;gap:10px">
+        <a href="mailto:${c.email}?subject=Re: Your TrueVue Project Brief" class="btn-primary" style="text-decoration:none">
+          <i class="fa-solid fa-reply"></i> Reply by Email
+        </a>
+      </div>
+    `;
+    document.getElementById('contactModal').classList.add('open');
+    if (!c.read) {
+      await authFetch(`${API}/api/contact/${id}/read`, { method: 'PUT' });
+      c.read = true;
+      renderContacts();
+      updateBadge();
+    }
+  }
+
+  function closeModal() { document.getElementById('contactModal').classList.remove('open'); }
+
+  async function deleteContact(id) {
+    if (!confirm('Delete this inquiry?')) return;
+    const r = await authFetch(`${API}/api/contact/${id}`, { method: 'DELETE' });
+    if (r?.ok) {
+      contacts = contacts.filter(c => c.id !== id);
+      renderContacts();
+      updateBadge();
+      toast('Inquiry deleted', 'success');
+    }
+  }
+
+  // ── Dashboard ─────────────────────────────────────────
+  function renderDashboard() {
+    const total = contacts.length;
+    const unread = contacts.filter(c => !c.read).length;
+    const weekAgo = new Date(Date.now() - 7*24*60*60*1000);
+    const week = contacts.filter(c => new Date(c.submittedAt) > weekAgo).length;
+    document.getElementById('statTotal').textContent = total;
+    document.getElementById('statUnread').textContent = unread;
+    document.getElementById('statWeek').textContent = week;
+
+    const recent = contacts.slice(0, 5);
+    document.getElementById('recentContacts').innerHTML = recent.length === 0
+      ? `<p style="color:var(--muted);font-size:13px">No inquiries yet.</p>`
+      : recent.map(c => `
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer" onclick="showPanel('contacts');openContact('${c.id}')">
+          <div>
+            <div style="font-size:13px;font-weight:400">${c.firstName} ${c.lastName} <span style="color:var(--muted)">· ${c.company}</span></div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px">${fmtDate(c.submittedAt)}</div>
+          </div>
+          ${c.read ? '' : '<span class="tag-unread">New</span>'}
+        </div>
+      `).join('');
+  }
+
+  // ── Content ───────────────────────────────────────────
+  async function loadContent() {
+    const r = await fetch(`${API}/api/content`);
+    siteContent = await r.json();
+    fillContentForm();
+  }
+
+  function fillContentForm() {
+    const fields = [
+      'hero_title','hero_subtitle','hero_cta_text','hero_cta_link',
+      'about_text',
+      'contact_email','contact_phone','contact_address',
+      'social_instagram','social_facebook','social_twitter','social_linkedin',
+      'site_name','meta_description','footer_text'
+    ];
+    fields.forEach(k => {
+      const el = document.getElementById(`c-${k}`);
+      if (el) el.value = siteContent[k] || '';
+    });
+  }
+
+  async function saveContent() {
+    const fields = [
+      'hero_title','hero_subtitle','hero_cta_text','hero_cta_link',
+      'about_text',
+      'contact_email','contact_phone','contact_address',
+      'social_instagram','social_facebook','social_twitter','social_linkedin',
+      'site_name','meta_description','footer_text'
+    ];
+    const body = {};
+    fields.forEach(k => {
+      const el = document.getElementById(`c-${k}`);
+      if (el) body[k] = el.value;
+    });
+    const r = await authFetch(`${API}/api/content`, { method: 'PUT', body: JSON.stringify(body) });
+    if (r?.ok) {
+      const msg = document.getElementById('contentSaveMsg');
+      msg.classList.add('show');
+      setTimeout(() => msg.classList.remove('show'), 3000);
+      toast('Content saved!', 'success');
+    } else {
+      toast('Failed to save', 'error');
+    }
+  }
+
+  // ── Testimonials ──────────────────────────────────────
+  async function loadTestimonials() {
+    const r = await fetch(`${API}/api/content/testimonials`);
+    if (r.ok) {
+      let data = await r.json();
+      // Fallback: load from local JSON if API returns empty
+      if (!data || data.length === 0) {
+        try {
+          const fr = await fetch('/components/testimonials.json');
+          if (fr.ok) data = await fr.json();
+        } catch(_) {}
+      }
+      testimonials = data || [];
+    }
+    renderTestimonials();
+  }
+
+  function renderTestimonials() {
+    document.getElementById('testimonialsList').innerHTML = testimonials.map((t, i) => `
+      <div class="testimonial-item">
+        <div class="testimonial-item-header">
+          <div>
+            <div class="t-name">${t.name || 'New Testimonial'}</div>
+            <div class="t-role">${t.role || ''}</div>
+          </div>
+          <button class="btn-danger" onclick="removeTestimonial(${i})"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        <div class="grid-2" style="margin-bottom:12px">
+          <div class="field-group" style="margin-bottom:0">
+            <label class="field-label">Name</label>
+            <input class="field-input" value="${t.name||''}" oninput="testimonials[${i}].name=this.value;document.querySelector('.testimonial-item:nth-child(${i+1}) .t-name').textContent=this.value">
+          </div>
+          <div class="field-group" style="margin-bottom:0">
+            <label class="field-label">Role / Company</label>
+            <input class="field-input" value="${t.role||''}" oninput="testimonials[${i}].role=this.value;document.querySelector('.testimonial-item:nth-child(${i+1}) .t-role').textContent=this.value">
+          </div>
+        </div>
+        <div class="field-group" style="margin-bottom:0">
+          <label class="field-label">Review Text</label>
+          <textarea class="field-textarea" rows="3" oninput="testimonials[${i}].text=this.value">${t.text||''}</textarea>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function addTestimonial() {
+    testimonials.push({ stars: 5, name: '', role: '', text: '', initials: '?', avatar: '' });
+    renderTestimonials();
+  }
+
+  function removeTestimonial(i) {
+    if (!confirm('Remove this testimonial?')) return;
+    testimonials.splice(i, 1);
+    renderTestimonials();
+  }
+
+  async function saveTestimonials() {
+    const r = await authFetch(`${API}/api/content/testimonials`, {
+      method: 'PUT',
+      body: JSON.stringify({ testimonials })
+    });
+    if (r?.ok) {
+      const msg = document.getElementById('tSaveMsg');
+      msg.classList.add('show');
+      setTimeout(() => msg.classList.remove('show'), 3000);
+      toast('Testimonials saved!', 'success');
+    } else {
+      toast('Failed to save', 'error');
+    }
+  }
+
+  // ── Password ──────────────────────────────────────────
+  async function changePassword() {
+    const cur = document.getElementById('pw-current').value;
+    const nw = document.getElementById('pw-new').value;
+    const cf = document.getElementById('pw-confirm').value;
+    if (nw !== cf) return toast('Passwords do not match', 'error');
+    if (nw.length < 6) return toast('Password must be at least 6 characters', 'error');
+    const r = await authFetch(`${API}/api/auth/change-password`, {
+      method: 'POST',
+      body: JSON.stringify({ currentPassword: cur, newPassword: nw })
+    });
+    const d = await r?.json();
+    if (r?.ok) {
+      ['pw-current','pw-new','pw-confirm'].forEach(id => document.getElementById(id).value='');
+      const msg = document.getElementById('pwSaveMsg');
+      msg.classList.add('show');
+      setTimeout(() => msg.classList.remove('show'), 3000);
+      toast('Password updated!', 'success');
+    } else {
+      toast(d?.error || 'Failed', 'error');
+    }
+  }
+
+  // ── Utils ─────────────────────────────────────────────
+  function fmtDate(iso) {
+    return new Date(iso).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  }
+
+  function toast(msg, type = 'success') {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = type;
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 3000);
+  }
+
+  // Enter key on login
+  document.getElementById('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+  document.getElementById('loginUser').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+  // Close modal on overlay click
+  document.getElementById('contactModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+  // Auto-init if token exists
+  if (token) initApp();
+</script>
+</body>
+</html>

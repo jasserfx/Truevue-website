@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services - TrueVue Studio</title>
+  <meta name="description" content="Explore TrueVue Studio's visual services: commercial photography, cinematic video production, and social content creation.">
+  <link rel="icon" type="image/x-icon" href="https://lh3.googleusercontent.com/d/1F6qazQYGRjPtAotPG7sIPEV7GcKzMQvG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/nav-footer.css">
+  <style>
+    /* ── SERVICES-SPECIFIC STYLES ──────────────────── */
+    .services-hero {
+      height: 55vh; min-height: 500px;
+      background: linear-gradient(135deg,#0d0f1a,#1a1d2e,#171d1c);
+      display: flex; align-items: flex-end;
+      padding: 0 80px 80px;
+      position: relative; overflow: hidden;
+      padding-top: 72px;
+    }
+    .services-hero-orb {
+      position: absolute; right: -100px; top: -100px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle,rgba(88,99,248,0.18) 0%,transparent 70%);
+    }
+    .services-hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(88,99,248,0.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(88,99,248,0.04) 1px,transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 70% at 80% 30%,black 0%,transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 80% 30%,black 0%,transparent 100%);
+    }
+    .services-hero-content { position: relative; z-index: 1; }
+    .services-hero h1 {
+      font-size: clamp(40px,7vw,90px); font-weight: 600;
+      line-height: 1.05; margin-top: 12px;
+    }
+    .services-hero h1 em { font-style: italic; color: var(--main); }
+
+    /* SERVICE BLOCKS */
+    .service-block {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      padding: 100px 80px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .service-block.reverse { direction: rtl; }
+    .service-block.reverse > * { direction: ltr; }
+    .service-block:nth-child(even) { background: rgba(255,255,255,0.012); }
+
+    .service-img {
+      aspect-ratio: 4/3; border-radius: 20px;
+      overflow: hidden; position: relative; background: var(--gray-dark);
+    }
+    .service-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      position: absolute; inset: 0;
+    }
+    .service-img-inner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 60px; opacity: 0.2;
+    }
+    .service-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg,rgba(88,99,248,0.15),transparent);
+    }
+    .service-tag {
+      display: inline-block;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--main);
+      border: 1px solid rgba(88,99,248,0.3);
+      padding: 5px 14px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .service-title {
+      font-size: clamp(28px,4vw,48px); font-weight: 500;
+      line-height: 1.1; margin-bottom: 20px;
+    }
+    .service-title em { font-style: italic; color: var(--main); }
+    .service-desc {
+      font-size: 15px; font-weight: 300;
+      color: rgba(255,255,255,0.5); line-height: 1.85; margin-bottom: 32px;
+    }
+    .service-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .service-features li {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 13px; font-weight: 400;
+      color: rgba(255,255,255,0.6); letter-spacing: 0.03em;
+    }
+    .service-features li::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--main); flex-shrink: 0;
+    }
+
+    /* GALLERY on services — dark bg */
+    .gallery-section.dark { background: #0a0d0c; }
+    .testimonials-section.dark { background: #0a0d0c; }
+
+    @media(max-width:900px){
+      .services-hero { padding: 72px 24px 60px; height: auto; min-height: 300px; }
+      .service-block { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+      .service-block.reverse { direction: ltr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="nav-slot"></div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="services-hero">
+  <div class="services-hero-orb"></div>
+  <div class="services-hero-grid"></div>
+  <div class="services-hero-content">
+    <span class="section-label">What We Offer</span>
+    <h1>Crafting the <em>Perfect</em><br>Frame, Every Time.</h1>
+  </div>
+</div>
+
+<!-- ═══════════════ SERVICE: PHOTOGRAPHY ═══════════════ -->
+<div class="service-block" id="photography">
+  <div class="service-img reveal">
+    <!-- Replace src with your real image -->
+    <div class="service-img-inner">📸</div>
+    <div class="service-img-overlay"></div>
+  </div>
+  <div class="reveal reveal-delay-1">
+    <span class="service-tag">Photography</span>
+    <h2 class="service-title">Commercial &amp; Brand <em>Photography</em></h2>
+    <p class="service-desc">High-end photography that transforms your products, people, and spaces into magnetic visual assets. Every shoot is art-directed with your brand story at the center.</p>
+    <ul class="service-features">
+      <li>Product &amp; campaign photography</li>
+      <li>Corporate and headshot sessions</li>
+      <li>Lifestyle and editorial shoots</li>
+      <li>Architecture &amp; interiors</li>
+      <li>Full retouching &amp; color grading</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════ SERVICE: VIDEO ═══════════════ -->
+<div class="service-block reverse" id="video">
+  <div class="service-img reveal">
+    <div class="service-img-inner">🎬</div>
+    <div class="service-img-overlay"></div>
+  </div>
+  <div class="reveal reveal-delay-1">
+    <span class="service-tag">Video Production</span>
+    <h2 class="service-title">Cinematic Video <em>&amp; Film</em></h2>
+    <p class="service-desc">From brand films to social reels, we produce video that moves people. Cinematic quality, strategic messaging, and flawless post-production — end to end.</p>
+    <ul class="service-features">
+      <li>Brand films &amp; commercials</li>
+      <li>Social media content packages</li>
+      <li>Event &amp; documentary coverage</li>
+      <li>Motion graphics &amp; animation</li>
+      <li>Color grading &amp; sound design</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════ SERVICE: SOCIAL CONTENT ═══════════════ -->
+<div class="service-block" id="content">
+  <div class="service-img reveal">
+    <div class="service-img-inner">✨</div>
+    <div class="service-img-overlay"></div>
+  </div>
+  <div class="reveal reveal-delay-1">
+    <span class="service-tag">Content Strategy</span>
+    <h2 class="service-title">Social &amp; Digital <em>Content</em></h2>
+    <p class="service-desc">Consistent, scroll-stopping content built for your platforms. We develop content systems that keep your brand looking extraordinary — week after week.</p>
+    <ul class="service-features">
+      <li>Monthly content retainers</li>
+      <li>Platform-specific formatting</li>
+      <li>Content calendar planning</li>
+      <li>Stories, reels &amp; short-form video</li>
+      <li>Performance analysis</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+<div class="testimonials-section dark" data-testimonials>
+  <div class="testimonials-header reveal">
+    <span class="section-label">Proof of Work</span>
+    <h2 class="section-title">Trusted by <em>Great Brands</em></h2>
+  </div>
+  <div class="testimonials-track reveal reveal-delay-1"></div>
+</div>
+
+<!-- ═══════════════ GALLERY ═══════════════ -->
+<div class="gallery-section dark">
+  <div class="gallery-header reveal">
+    <span class="section-label">Recent Projects</span>
+    <h2 class="section-title">The Work Speaks <em>for Itself</em></h2>
+  </div>
+  <div class="gallery-grid reveal reveal-delay-1">
+    <div class="gallery-item gi-1 gc-3"><div class="inner-icon">🎬</div><span class="gallery-item-label">Launch Film</span></div>
+    <div class="gallery-item gi-2 gc-1"><div class="inner-icon">📸</div><span class="gallery-item-label">Product Campaign</span></div>
+    <div class="gallery-item gi-3 gc-6"><div class="inner-icon">🌆</div><span class="gallery-item-label">Real Estate</span></div>
+    <div class="gallery-item gi-4 gc-9"><div class="inner-icon">✨</div><span class="gallery-item-label">Fashion Film</span></div>
+    <div class="gallery-item gi-5 gc-5"><div class="inner-icon">🎥</div><span class="gallery-item-label">Corporate Story</span></div>
+    <div class="gallery-item gi-6 gc-2"><div class="inner-icon">📷</div><span class="gallery-item-label">Portraits</span></div>
+    <div class="gallery-item gi-7 gc-7"><div class="inner-icon">🛍️</div><span class="gallery-item-label">E-commerce</span></div>
+    <div class="gallery-item gi-8 gc-4"><div class="inner-icon">🚀</div><span class="gallery-item-label">Social Reels</span></div>
+    <div class="gallery-item gi-9 gc-8"><div class="inner-icon">💼</div><span class="gallery-item-label">Brand Identity</span></div>
+    <div class="gallery-item gi-10 gc-10"><div class="inner-icon">🎞️</div><span class="gallery-item-label">Documentary</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<div class="contact-inline">
+  <h2 class="section-title-light">Let's Build Something <em>Extraordinary</em></h2>
+  <p>Schedule a free discovery call and let's explore what's possible.</p>
+  <a href="contact.html" class="btn-white">Book Your Discovery Call</a>
+</div>
+
+<div id="footer-slot"></div>
+<script src="js/components.js"></script>
+</body>
+</html>

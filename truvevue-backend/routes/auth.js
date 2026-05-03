@@ -1,0 +1,30 @@
+import express from 'express';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { getDB } from '../db/database.js';
+import { authenticate } from '../middleware/auth.js';
+const router = express.Router();
+const SECRET = () => process.env.JWT_SECRET || 'truvevue-secret';
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) return res.status(400).json({ error: 'Username and password required.' });
+  const db = getDB(); await db.read();
+  if (username !== db.data.admin.username) return res.status(401).json({ error: 'Invalid credentials.' });
+  const valid = await bcrypt.compare(password, db.data.admin.passwordHash);
+  if (!valid) return res.status(401).json({ error: 'Invalid credentials.' });
+  const token = jwt.sign({ username, role: 'admin' }, SECRET(), { expiresIn: '24h' });
+  res.json({ token, message: 'Login successful' });
+});
+router.get('/me', authenticate, (req, res) => res.json({ username: req.user.username, role: req.user.role }));
+router.post('/change-password', authenticate, async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  if (!currentPassword || !newPassword) return res.status(400).json({ error: 'Both fields required.' });
+  if (newPassword.length < 6) return res.status(400).json({ error: 'Min 6 characters.' });
+  const db = getDB(); await db.read();
+  const valid = await bcrypt.compare(currentPassword, db.data.admin.passwordHash);
+  if (!valid) return res.status(401).json({ error: 'Current password incorrect.' });
+  db.data.admin.passwordHash = await bcrypt.hash(newPassword, 12);
+  await db.write();
+  res.json({ message: 'Password changed.' });
+});
+export default router;

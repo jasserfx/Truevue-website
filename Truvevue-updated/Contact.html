@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - TrueVue Studio</title>
+  <meta name="description" content="Start your project with TrueVue Studio. Share your brief and we'll schedule a discovery call.">
+  <link rel="icon" type="image/x-icon" href="https://lh3.googleusercontent.com/d/1F6qazQYGRjPtAotPG7sIPEV7GcKzMQvG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/nav-footer.css">
+  <style>
+    /* ── CONTACT-SPECIFIC STYLES ───────────────────── */
+    .contact-page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+    }
+    /* LEFT PANEL */
+    .contact-left {
+      background: linear-gradient(135deg,#0d0f1a 0%,#131620 60%,#0e1615 100%);
+      padding: 80px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .contact-left-orb {
+      position: absolute; bottom: -100px; left: -100px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle,rgba(88,99,248,0.15) 0%,transparent 70%);
+    }
+    .contact-left-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(88,99,248,0.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(88,99,248,0.04) 1px,transparent 1px);
+      background-size: 50px 50px;
+      mask-image: radial-gradient(ellipse 80% 80% at 20% 80%,black 0%,transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 20% 80%,black 0%,transparent 70%);
+    }
+    .contact-left-content { position: relative; z-index: 1; }
+    .contact-left h2 {
+      font-size: clamp(32px,4vw,52px); font-weight: 600;
+      line-height: 1.1; margin-bottom: 20px;
+    }
+    .contact-left h2 em { font-style: italic; color: var(--main); }
+    .contact-left > .contact-left-content > p {
+      font-size: 15px; font-weight: 300;
+      color: rgba(255,255,255,0.5); line-height: 1.85; margin-bottom: 48px;
+    }
+    .contact-detail {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px; font-size: 14px;
+      color: rgba(255,255,255,0.65); font-weight: 300;
+    }
+    .contact-detail-icon {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(88,99,248,0.12);
+      border: 1px solid rgba(88,99,248,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0; color: var(--main);
+    }
+
+    /* RIGHT PANEL — FORM */
+    .contact-right {
+      background: #0f1210;
+      padding: 80px 70px;
+      display: flex; flex-direction: column; justify-content: center;
+      overflow-y: auto;
+    }
+    .form-title {
+      font-size: 28px; font-weight: 300; margin-bottom: 32px; color: var(--white);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 0; }
+    .form-group { margin-bottom: 16px; }
+    .form-label {
+      display: block; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); margin-bottom: 8px;
+    }
+    .form-label .opt { color: rgba(255,255,255,0.2); font-weight: 300; text-transform: none; letter-spacing: 0; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 14px; font-weight: 300;
+      color: var(--white);
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+      appearance: none; outline: none;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: rgba(88,99,248,0.5);
+      background: rgba(88,99,248,0.05);
+      box-shadow: 0 0 0 3px rgba(88,99,248,0.1);
+    }
+    .form-input.error { border-color: rgba(255,80,80,0.5); }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-select option { background: #1a1d2e; color: var(--white); }
+
+    /* Select arrow */
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: '\f107';
+      font-family: 'Font Awesome 6 Free'; font-weight: 900;
+      position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+      color: rgba(255,255,255,0.3); pointer-events: none; font-size: 12px;
+    }
+
+    .form-submit {
+      width: 100%; background: var(--main); color: var(--white); border: none;
+      padding: 18px; border-radius: 12px;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s; margin-top: 8px;
+      font-family: 'Poppins', sans-serif;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .form-submit:hover {
+      background: #6e78ff;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px var(--main-glow);
+    }
+    .form-submit.loading { opacity: 0.7; pointer-events: none; }
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    .form-submit.loading .spinner { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .form-note {
+      font-size: 11px; color: rgba(255,255,255,0.25);
+      text-align: center; margin-top: 14px; line-height: 1.6;
+    }
+
+    /* SUCCESS */
+    .form-success {
+      display: none; text-align: center; padding: 60px 20px;
+      flex-direction: column; align-items: center;
+    }
+    .form-success.show { display: flex; }
+    .form-success-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(88,99,248,0.15); border: 1px solid rgba(88,99,248,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; color: var(--main); margin-bottom: 28px;
+    }
+    .form-success h3 {
+      font-size: 32px; font-weight: 300; margin-bottom: 16px; line-height: 1.2;
+    }
+    .form-success h3 em { font-style: italic; color: var(--main); }
+    .form-success p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.7; max-width: 380px; }
+
+    @media(max-width:900px){
+      .contact-page { grid-template-columns: 1fr; }
+      .contact-left { padding: 100px 24px 60px; min-height: auto; }
+      .contact-right { padding: 48px 24px 60px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="nav-slot"></div>
+
+<div class="contact-page">
+  <!-- LEFT INFO PANEL -->
+  <div class="contact-left">
+    <div class="contact-left-orb"></div>
+    <div class="contact-left-grid"></div>
+    <div class="contact-left-content reveal">
+      <span class="section-label">Get In Touch</span>
+      <h2>Let's Talk About<br>Your <em>Project</em></h2>
+      <p>Share a few details about what you're looking to create, and we'll follow up to schedule a quick discovery call.</p>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <span>Sousse, Tunisia</span>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon"><i class="fa-solid fa-envelope"></i></div>
+        <span>Contact@truevuestudio.com</span>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon"><i class="fa-solid fa-phone"></i></div>
+        <span>+216 94 644 226</span>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon"><i class="fa-brands fa-instagram"></i></div>
+        <a href="https://www.instagram.com/truevuestudio/" target="_blank" style="color:rgba(255,255,255,0.65);text-decoration:none;">@truevuestudio</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT FORM PANEL -->
+  <div class="contact-right">
+    <div id="contactForm">
+      <h3 class="form-title">Project Details</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" placeholder="Sarah" id="f-first" autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" placeholder="Johnson" id="f-last" autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="sarah@company.com" id="f-email" autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Phone Number <span class="opt">(optional)</span></label>
+        <input type="tel" class="form-input" placeholder="+216 XX XXX XXX" id="f-phone" autocomplete="tel">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Company or Brand Name</label>
+        <input type="text" class="form-input" placeholder="Acme Brand Co." id="f-company" autocomplete="organization">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">About Your Project</label>
+        <textarea class="form-textarea" id="f-project"
+          placeholder="What you're looking to create (photo, video, or both), the goal of the project, and any helpful timing or context. A few sentences is perfect — we'll cover details on the discovery call."></textarea>
+      </div>
+
+      <!-- <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Shoot Date <span class="opt">(optional)</span></label>
+          <input type="date" class="form-input" id="f-shoot">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Assets Needed By <span class="opt">(optional)</span></label>
+          <input type="date" class="form-input" id="f-deadline">
+        </div>
+      </div> -->
+
+
+      <div class="form-group">
+        <label class="form-label">Company Size</label>
+        <div class="select-wrap">
+          <select class="form-select" id="f-size">
+            <option value="" disabled selected>Select company size</option>
+            <option>Solo / Freelance</option>
+            <option>2 – 10 employees</option>
+            <option>11 – 50 employees</option>
+            <option>51 – 200 employees</option>
+            <option>200+ employees</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="form-submit" id="submitBtn" onclick="submitForm()">
+        <span>Send Project Brief</span>
+        <span>→</span>
+        <div class="spinner"></div>
+      </button>
+      <p class="form-note">We typically respond within 24 hours on business days.<br>Your information is kept private and never shared.</p>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="form-success" id="formSuccess">
+      <div class="form-success-icon"><i class="fa-solid fa-check"></i></div>
+      <h3>Brief Received.<br><em>We'll be in touch soon.</em></h3>
+      <p>Thank you for reaching out. We've received your project details and will get back to you within 24 hours to schedule your discovery call.</p>
+      <a href="index.html" class="btn-primary" style="margin-top:32px;">Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<div id="footer-slot"></div>
+
+<script src="js/components.js"></script>
+<script>
+  /* ── FORM SUBMISSION ─────────────────────────────
+     This submits to your Formspree endpoint.
+     Replace YOUR_FORM_ID with your actual Formspree ID.
+     See SETUP.md for full instructions.
+  ─────────────────────────────────────────────────── */
+
+  async function submitForm() {
+    const fields = [
+      { id: 'f-first',   label: 'First Name' },
+      { id: 'f-last',    label: 'Last Name' },
+      { id: 'f-email',   label: 'Email' },
+      { id: 'f-company', label: 'Company' },
+      { id: 'f-project', label: 'Project Description' },
+    ];
+
+    // Validate
+    let valid = true;
+    fields.forEach(f => {
+      const el = document.getElementById(f.id);
+      el.classList.remove('error');
+      if (!el.value.trim()) {
+        el.classList.add('error');
+        valid = false;
+      }
+    });
+    if (!valid) return;
+
+    // Email validation
+    const emailEl = document.getElementById('f-email');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+      emailEl.classList.add('error');
+      return;
+    }
+
+    // Loading state
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+
+    const formData = {
+      firstName:   document.getElementById('f-first').value,
+      lastName:    document.getElementById('f-last').value,
+      email:       document.getElementById('f-email').value,
+      phone:       document.getElementById('f-phone').value || '—',
+      company:     document.getElementById('f-company').value,
+      project:     document.getElementById('f-project').value,
+      shootDate:   '—',
+      deadline:    '—',
+      budget:      '—',
+      companySize: document.getElementById('f-size').value || '—',
+    };
+
+    try {
+      /* ─────────────────────────────────────────────────
+         OPTION A — Formspree (recommended, free tier)
+         1. Sign up at formspree.io
+         2. Create a form → get your form ID
+         3. Replace YOUR_FORM_ID below
+      ───────────────────────────────────────────────── */
+        // ── Backend API submission ──────────────────────────────
+      const BACKEND_URL = 'http://localhost:3001'; // ← set your deployed backend URL
+      // For local dev: const BACKEND_URL = 'http://localhost:3001';
+
+      const res = await fetch(`${BACKEND_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        showSuccess();
+      } else {
+        throw new Error(data.error || 'Submission failed');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Something went wrong. Please try again or email us directly.');
+    }
+
+    btn.classList.remove('loading');
+  }
+
+  function showSuccess() {
+    document.getElementById('contactForm').style.display = 'none';
+    const s = document.getElementById('formSuccess');
+    s.classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Clear error on input
+  document.querySelectorAll('.form-input, .form-textarea').forEach(el => {
+    el.addEventListener('input', () => el.classList.remove('error'));
+  });
+</script>
+</body>
+</html>
