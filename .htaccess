@@ -7,20 +7,19 @@ RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # -----------------------------------
-# 2. DISABLE DIRECTORY LISTING
+# 2. REMOVE .html FROM URLS
 # -----------------------------------
-Options -Indexes
+RewriteCond %{THE_REQUEST} \s/+(.+)\.html [NC]
+RewriteRule ^(.+)\.html$ /$1 [R=301,L]
 
 # -----------------------------------
-# 3. CURRENT MODE: COMING SOON (ACTIVE SITE)
+# 3. INTERNALLY LOAD .html FILES
 # -----------------------------------
-RewriteCond %{REQUEST_URI} !^/Coming-Soon\.html$ [NC]
-RewriteCond %{REQUEST_URI} !^/css/
-RewriteCond %{REQUEST_URI} !^/js/
-RewriteCond %{REQUEST_URI} !^/images/
-RewriteRule ^.*$ /Coming-Soon.html [R=302,L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
 
 # -----------------------------------
-# 4. FUTURE MODE (HOME PAGE SETUP)
+# 4. SET HOMEPAGE
 # -----------------------------------
-DirectoryIndex Home.html
+DirectoryIndex Home
