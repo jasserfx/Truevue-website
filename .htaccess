@@ -1,20 +1,9 @@
 RewriteEngine On
 
-# ----------------------------
-# 1. FORCE HTTPS (do this FIRST)
-# ----------------------------
+# Force HTTPS
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# ----------------------------
-# 2. EXCLUDE ASSETS + COMING SOON
-# ----------------------------
-RewriteCond %{REQUEST_URI} !^/css/
-RewriteCond %{REQUEST_URI} !^/js/
-RewriteCond %{REQUEST_URI} !^/images/
-RewriteCond %{REQUEST_URI} !^/Coming-Soon\.html$ [NC]
-
-# ----------------------------
-# 3. FORCE COMING SOON (MAIN RULE)
-# ----------------------------
-RewriteRule ^.*$ /Coming-Soon.html [R=302,L]
+# Force coming soon
+RewriteCond %{REQUEST_URI} !/coming-soon\.html$ [NC]
+RewriteRule ^.*$ /coming-soon.html [R=302,L]
