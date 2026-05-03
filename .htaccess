@@ -1,9 +1,7 @@
+DirectoryIndex home.html
+
 RewriteEngine On
 
-# Force HTTPS
+# Force HTTPS (optional)
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Coming soon override
-RewriteCond %{REQUEST_URI} !^/Coming-Soon\.html$ [NC]
-RewriteRule ^.*$ /Coming-Soon.html [R=302,L]
