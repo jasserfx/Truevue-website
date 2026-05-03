@@ -1,28 +1,20 @@
-DirectoryIndex Home.html
 RewriteEngine On
-# Send root to Frontend folder
-RewriteRule ^$ /Frontend/ [L]
-RewriteRule ^(.*)$ /Frontend/$1 [L]
 
-# Force HTTPS
+# ----------------------------
+# 1. FORCE HTTPS (do this FIRST)
+# ----------------------------
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-
-# 1. Redirect .html → clean URL
-RewriteCond %{THE_REQUEST} \s/+(.+)\.html [NC]
-RewriteRule ^(.+)\.html$ /$1 [R=301,L]
-
-# 2. Internally rewrite clean URL → .html file
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^(.+)$ $1.html [L]
-
-
-
+# ----------------------------
+# 2. EXCLUDE ASSETS + COMING SOON
+# ----------------------------
 RewriteCond %{REQUEST_URI} !^/css/
 RewriteCond %{REQUEST_URI} !^/js/
 RewriteCond %{REQUEST_URI} !^/images/
 RewriteCond %{REQUEST_URI} !^/Coming-Soon\.html$ [NC]
 
+# ----------------------------
+# 3. FORCE COMING SOON (MAIN RULE)
+# ----------------------------
 RewriteRule ^.*$ /Coming-Soon.html [R=302,L]
