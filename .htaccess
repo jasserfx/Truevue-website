@@ -1,5 +1,8 @@
 DirectoryIndex Home.html
 RewriteEngine On
+# Send root to Frontend folder
+RewriteRule ^$ /Frontend/ [L]
+RewriteRule ^(.*)$ /Frontend/$1 [L]
 
 # Force HTTPS
 RewriteCond %{HTTPS} !=on
