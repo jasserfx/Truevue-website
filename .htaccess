@@ -29,7 +29,7 @@ ServerSignature Off
 #RewriteCond %{REQUEST_URI} !^/js/ [NC]
 #RewriteCond %{REQUEST_URI} !^/images/ [NC]
 #RewriteCond %{REQUEST_URI} !^/fonts/ [NC]
-RewriteRule ^.*$ /Coming-Soon.html [R=302,L]
+#RewriteRule ^.*$ /Coming-Soon.html [R=302,L]
 
 # ------------------------------------------------------------
 # 4. LIVE MODE  ← uncomment this whole block when going live
