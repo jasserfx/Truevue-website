@@ -297,7 +297,6 @@
       { id: 'f-first',   label: 'First Name' },
       { id: 'f-last',    label: 'Last Name' },
       { id: 'f-email',   label: 'Email' },
-      { id: 'f-company', label: 'Company' },
       { id: 'f-project', label: 'Project Description' },
     ];
 
@@ -337,7 +336,7 @@
       lastName:    document.getElementById('f-last').value,
       email:       document.getElementById('f-email').value,
       phone:       document.getElementById('f-phone').value || '—',
-      company:     document.getElementById('f-company').value,
+      company:     document.getElementById('f-company').value || '—',
       project:     document.getElementById('f-project').value,
       shootDate:   '—',
       deadline:    '—',
