@@ -322,7 +322,15 @@
 
     // Loading state
     const btn = document.getElementById('submitBtn');
+    const originalText = btn.textContent;
+    btn.disabled = true;
     btn.classList.add('loading');
+    btn.textContent = 'Sending…';
+
+    // Show friendly message if server is waking up (Render free tier)
+    const slowTimer = setTimeout(() => {
+      btn.textContent = 'Almost there…';
+    }, 5000);
 
     const formData = {
       firstName:   document.getElementById('f-first').value,
@@ -337,18 +345,17 @@
       companySize: document.getElementById('f-size').value || '—',
     };
 
-    try {
-      /* ─────────────────────────────────────────────────
-         OPTION A — Formspree (recommended, free tier)
-         1. Sign up at formspree.io
-         2. Create a form → get your form ID
-         3. Replace YOUR_FORM_ID below
-      ───────────────────────────────────────────────── */
-        // ── Backend API submission ──────────────────────────────
-      const BACKEND_URL = 'https://truevue-backend.onrender.com'; // ← set your deployed backend URL
-      // For local dev: const BACKEND_URL = 'http://localhost:3001';
+    const resetBtn = () => {
+      clearTimeout(slowTimer);
+      btn.disabled = false;
+      btn.classList.remove('loading');
+      btn.textContent = originalText;
+    };
 
-      // 60s timeout — Render free tier can take ~30s to wake up
+    try {
+      const BACKEND_URL = 'https://truevue-backend.onrender.com';
+
+      // 60s timeout — Render free tier can take ~30s to wake from sleep
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 60000);
 
@@ -365,22 +372,19 @@
       const data = await res.json();
 
       if (res.ok && data.success) {
+        btn.classList.remove('loading');
         showSuccess();
       } else {
         throw new Error(data.error || 'Submission failed');
       }
     } catch (err) {
-      clearTimeout(slowTimer);
       console.error(err);
+      resetBtn();
       const msg = err.name === 'AbortError'
-        ? 'Request timed out. Please try again — the server may have been sleeping.'
-        : 'Something went wrong. Please try again or email us directly at Contact@truevuestudio.com';
+        ? 'The server took too long to respond. Please try again in a moment.'
+        : 'Something went wrong. Please try again or email us at Contact@truevuestudio.com';
       alert(msg);
-      btn.disabled = false;
-      btn.textContent = 'Send Project Brief';
     }
-
-    btn.classList.remove('loading');
   }
 
   function showSuccess() {
