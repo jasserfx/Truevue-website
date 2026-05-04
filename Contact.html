@@ -348,11 +348,19 @@
       const BACKEND_URL = 'https://truevue-backend.onrender.com'; // ← set your deployed backend URL
       // For local dev: const BACKEND_URL = 'http://localhost:3001';
 
+      // 60s timeout — Render free tier can take ~30s to wake up
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 60000);
+
       const res = await fetch(`${BACKEND_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
+      clearTimeout(slowTimer);
 
       const data = await res.json();
 
@@ -362,8 +370,14 @@
         throw new Error(data.error || 'Submission failed');
       }
     } catch (err) {
+      clearTimeout(slowTimer);
       console.error(err);
-      alert('Something went wrong. Please try again or email us directly.');
+      const msg = err.name === 'AbortError'
+        ? 'Request timed out. Please try again — the server may have been sleeping.'
+        : 'Something went wrong. Please try again or email us directly at Contact@truevuestudio.com';
+      alert(msg);
+      btn.disabled = false;
+      btn.textContent = 'Send Project Brief';
     }
 
     btn.classList.remove('loading');
