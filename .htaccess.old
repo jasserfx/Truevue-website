@@ -26,30 +26,20 @@ ServerSignature Off
     Require all denied
 </FilesMatch>
 
-# ------------------------------------------------------------
-# 3. COMING SOON MODE  ← comment this whole block when ready
-# ------------------------------------------------------------
-RewriteCond %{REQUEST_URI} !^/Coming-Soon\.html$ [NC]
-RewriteCond %{REQUEST_URI} !^/css/ [NC]
-RewriteCond %{REQUEST_URI} !^/js/ [NC]
-RewriteCond %{REQUEST_URI} !^/images/ [NC]
-RewriteCond %{REQUEST_URI} !^/fonts/ [NC]
-RewriteCond %{REQUEST_URI} !^/components/ [NC]
-RewriteRule ^.*$ /Coming-Soon.html [R=302,L]
 
 # ------------------------------------------------------------
 # 4. LIVE MODE  ← uncomment this whole block when going live
 # ------------------------------------------------------------
-# DirectoryIndex Home.html
+ DirectoryIndex Home.html
 
-# # Clean URLs (optional): /about → /About.html
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteCond %{REQUEST_FILENAME}.html -f
-# RewriteRule ^([^/]+)/?$ /$1.html [L]
+ # Clean URLs (optional): /about → /About.html
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteCond %{REQUEST_FILENAME} !-d
+ RewriteCond %{REQUEST_FILENAME}.html -f
+ RewriteRule ^([^/]+)/?$ /$1.html [L]
 
-# # 404 fallback
-# ErrorDocument 404 /Home.html
+ # 404 fallback
+ ErrorDocument 404 /Home.html
 
 # ------------------------------------------------------------
 # 5. PERFORMANCE (active in both modes)
