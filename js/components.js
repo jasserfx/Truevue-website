@@ -35,7 +35,8 @@
     'home': 'home',
     'index': 'home',
     'services': 'services',
-    'ourwork': 'ourwork',
+    'portfolio': 'portfolio',
+    'ourwork': 'portfolio',
     'contact': 'contact',
   };
   const currentPage = pageMap[raw] || 'home';
