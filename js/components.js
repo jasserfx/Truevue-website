@@ -4,6 +4,14 @@
 
 (async function () {
 
+  /* ── Load i18n ──────────────────────────────────── */
+  await new Promise(resolve => {
+    const s = document.createElement('script');
+    s.src = 'js/i18n.js';
+    s.onload = resolve; s.onerror = resolve;
+    document.head.appendChild(s);
+  });
+
   /* ── Helpers ───────────────────────────────────── */
 
   // Get the base URL of the site root (works on any hosting)
@@ -36,7 +44,6 @@
     'index': 'home',
     'services': 'services',
     'portfolio': 'portfolio',
-    'ourwork': 'portfolio',
     'contact': 'contact',
   };
   const currentPage = pageMap[raw] || 'home';
@@ -91,6 +98,9 @@
       console.error('Footer load failed:', e);
     }
   }
+
+  /* ── Apply i18n across everything in DOM ────────── */
+  if (window.TVi18n) TVi18n.init();
 
   /* ── Inject Testimonials ────────────────────────── */
   const testimonialSlots = document.querySelectorAll('[data-testimonials]');
