@@ -16,7 +16,7 @@ window.TVi18n = (function () {
     'footer.home':    { en: 'Home',                fr: 'Accueil' },
     'footer.copy':    { en: 'All rights reserved.', fr: 'Tous droits réservés.' },
 
-    'home.hero.eyebrow': { en: 'Visual Storytelling Studio', fr: 'Studio de Narration Visuelle' },
+    'home.hero.eyebrow': { en: 'Visual Storytelling Studio terst', fr: 'Studio de Narration Visuelle' },
     'home.hero.title':   { en: 'TrueVue<br><em>the Correct</em><br>View.', fr: 'TrueVue<br><em>the Correct</em><br>View.' },
     'home.hero.sub':     { en: 'We craft cinematic visuals that transform brands into experiences — photography and video that make the world stop and stare.', fr: 'Nous créons des visuels cinématiques qui transforment les marques en expériences — photographie et vidéo qui captivent.' },
     'home.hero.cta1':    { en: 'Start a Project', fr: 'Démarrer un Projet' },
