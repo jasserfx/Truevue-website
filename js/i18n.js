@@ -29,7 +29,7 @@ window.TVi18n = (function () {
 
     /* ── HOME: ABOUT ── */
     'home.about.label1': { en: 'Our Story', fr: 'Notre Histoire' },
-    'home.about.title1': { en: 'Who We <em>Are</em>', fr: 'Qui <em>Nous Sommes</em>' },
+    'home.about.title1': { en: 'Who We <em>Are</em> test', fr: 'Qui <em>Nous Sommes</em>' },
     'home.about.p1a':    { en: 'TrueVue Studio is a full-service visual production studio dedicated to delivering high-quality audiovisual and photographic content. We bring together creative direction, technical expertise, and a deep understanding of visual communication to craft impactful visuals that elevate brands, businesses, and personal projects.', fr: 'TrueVue Studio est un studio de production visuelle offrant des services complets, dédié à la création de contenus audiovisuels et photographiques de haute qualité. Nous réunissons direction créative, expertise technique et une compréhension approfondie de la communication visuelle pour créer des visuels percutants.' },
     'home.about.p1b':    { en: 'With a comprehensive approach to content creation, we handle every stage of production from concept development to final delivery ensuring consistency, precision, and excellence in every project. Our work is driven by a commitment to detail, storytelling, and creating visuals that leave a lasting impression.', fr: 'Avec une approche globale de la création de contenu, nous gérons chaque étape de la production du développement du concept jusqu\'à la livraison finale en garantissant cohérence, précision et excellence. Notre travail est guidé par un engagement envers le détail, la narration et la création de visuels qui laissent une impression durable.' },
     'home.about.label2': { en: 'Our Practice', fr: 'Notre Pratique' },
