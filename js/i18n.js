@@ -8,6 +8,7 @@ window.TVi18n = (function () {
   const T = {
     'nav.home':      { en: 'Home',        fr: 'Accueil' },
     'nav.services':  { en: 'Services',    fr: 'Services' },
+    'nav.about':     { en: 'About',       fr: 'À Propos' },
     'nav.contact':   { en: 'Contact',     fr: 'Contact' },
     'nav.cta':       { en: 'Book a Call', fr: 'Prendre RDV' },
 
@@ -67,9 +68,41 @@ window.TVi18n = (function () {
     'srv.cta.sub':   { en: "Schedule a free discovery call and let's explore what's possible.", fr: 'Planifiez un appel découverte gratuit et explorons ce qui est possible.' },
     'srv.cta.btn':   { en: 'Book Your Discovery Call', fr: 'Réserver Votre Appel Découverte' },
 
+
+    'about.hero.label': { en: 'About Us', fr: 'À Propos' },
+    'about.hero.title': { en: 'The Studio Behind<br><em>the Frame</em>', fr: 'Le Studio Derrière<br><em>l\'Image</em>' },
+    'about.hero.sub':   { en: 'TrueVue Studio was built on a simple belief: every brand has a story worth seeing clearly.', fr: "TrueVue Studio est né d'une conviction simple : chaque marque a une histoire qui mérite d'être vue clairement." },
+
+    'about.company.label': { en: 'The Company', fr: "L'Entreprise" },
+    'about.company.title': { en: 'Who <em>We Are</em>', fr: 'Qui <em>Nous Sommes</em>' },
+    'about.company.p1': { en: 'TrueVue Studio is a full-service visual production studio based in Sousse, Tunisia. We create high-quality photography, video, and digital content for brands, businesses, and creators who want their identity communicated with precision and impact.', fr: "TrueVue Studio est un studio de production visuelle complet basé à Sousse, en Tunisie. Nous créons de la photographie, de la vidéo et du contenu numérique de haute qualité pour les marques, les entreprises et les créateurs qui veulent communiquer leur identité avec précision et impact." },
+    'about.company.p2': { en: 'We handle every stage of production — concept, direction, shooting, editing, and post-production so each project stays consistent from the first idea to the final delivery. No handoffs, no diluted vision.', fr: "Nous gérons chaque étape de la production concept, direction, tournage, montage et post-production — afin que chaque projet reste cohérent de la première idée à la livraison finale. Aucun transfert, aucune vision diluée." },
+    'about.company.p3': { en: 'Our work spans commercial campaigns, brand films, product and architectural photography, event coverage, and tailored social media content — always driven by storytelling, detail, and a cinematic eye.', fr: "Notre travail couvre les campagnes commerciales, les films de marque, la photographie de produit et d'architecture, la couverture d'événements et le contenu sur mesure pour les réseaux sociaux — toujours guidé par la narration, le détail et un regard cinématographique." },
+
+    'about.v1.title': { en: 'Craft First',       fr: "L'Artisanat d'Abord" },
+    'about.v1.desc':  { en: 'Every frame is treated like it matters, because it does. Precision in light, composition, and color grading.', fr: 'Chaque image est traitée comme si elle comptait, parce que c\'est le cas. Précision dans la lumière, la composition et l\'étalonnage.' },
+    'about.v2.title': { en: 'Story Driven',      fr: 'Guidé par le Récit' },
+    'about.v2.desc':  { en: 'Beautiful visuals without meaning are decoration. We build every project around a clear narrative.', fr: 'De beaux visuels sans sens ne sont que de la décoration. Nous construisons chaque projet autour d\'un récit clair.' },
+    'about.v3.title': { en: 'End to End',        fr: 'De Bout en Bout' },
+    'about.v3.desc':  { en: 'One team from concept to delivery. Fewer moving parts, faster turnaround, a consistent result.', fr: 'Une seule équipe du concept à la livraison. Moins d\'intermédiaires, des délais plus courts, un résultat cohérent.' },
+    'about.v4.title': { en: 'Built to Last',     fr: 'Conçu pour Durer' },
+    'about.v4.desc':  { en: 'We work as long-term partners, not one-off vendors learning your brand and growing with it.', fr: 'Nous travaillons comme des partenaires à long terme, pas comme des prestataires ponctuels.' },
+
+    'about.founder.label': { en: 'The Founder', fr: 'Le Fondateur' },
+    'about.founder.title': { en: 'Meet the<br><em>Founder</em>', fr: 'Rencontrez le<br><em>Fondateur</em>' },
+    'about.founder.role':  { en: 'Founder &amp; Creative Director', fr: 'Fondateur &amp; Directeur Créatif' },
+    'about.founder.p1': { en: 'I started TrueVue Studio because I kept seeing brands with real substance being represented by visuals that said nothing about them. My work is about closing that gap making what a business actually is visible in a single frame.', fr: "J'ai créé TrueVue Studio parce que je voyais sans cesse des marques de vraie valeur représentées par des visuels qui ne disaient rien d'elles. Mon travail consiste à combler cet écart rendre visible ce qu'une entreprise est réellement, en une seule image." },
+    'about.founder.p2': { en: 'Behind the camera and in the edit, I lead every project personally: shaping the concept, directing the shoot, and finishing the grade. That hands-on approach is why the studio\'s output stays consistent, whatever the brief.', fr: "Derrière la caméra et au montage, je dirige personnellement chaque projet : conception, réalisation du tournage et étalonnage final. Cette approche directe explique la cohérence du travail du studio, quel que soit le brief." },
+    'about.founder.p3': { en: 'Based in Sousse, working with clients across Tunisia and beyond always open to a conversation about what you are building.', fr: "Basé à Sousse, je travaille avec des clients en Tunisie et au-delà toujours ouvert à une discussion sur ce que vous construisez." },
+    'about.founder.cta':   { en: 'Get in Touch', fr: 'Me Contacter' },
+
+    'about.cta.title': { en: 'Let\'s Make Something<br><em>Worth Watching</em>', fr: 'Créons Quelque Chose<br><em>Qui Mérite d\'Être Vu</em>' },
+    'about.cta.sub':   { en: 'Tell us about your brand and we will show you what it can look like.', fr: 'Parlez-nous de votre marque et nous vous montrerons ce qu\'elle peut devenir.' },
+    'about.cta.btn':   { en: 'Start a Project', fr: 'Démarrer un Projet' },
+
     'contact.label':       { en: 'Get In Touch',   fr: 'Contactez-Nous' },
     'contact.title':       { en: "Let's Work<br><em>Together</em>", fr: 'Travaillons<br><em>Ensemble</em>' },
-    'contact.subtitle':    { en: "Ready to bring your vision to life? Reach out directly — we'd love to hear about your project.", fr: "Prêts à donner vie à votre vision ? Contactez-nous directement — nous serions ravis d'entendre parler de votre projet." },
+    'contact.subtitle':    { en: "Ready to bring your vision to life? Reach out directly we'd love to hear about your project.", fr: "Prêts à donner vie à votre vision ? Contactez-nous directement nous serions ravis d'entendre parler de votre projet." },
     'contact.loc.label':   { en: 'Location',   fr: 'Localisation' },
     'contact.loc.value':   { en: 'Sousse, Tunisia', fr: 'Sousse, Tunisie' },
     'contact.email.label': { en: 'Email',      fr: 'E-mail' },

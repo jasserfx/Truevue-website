@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — TrueVue Studio</title>
+  <meta name="description" content="Learn about TrueVue Studio, a full-service visual production studio in Sousse, Tunisia, and the founder behind the lens.">
+  <link rel="icon" type="image/x-icon" href="https://lh3.googleusercontent.com/d/1F6qazQYGRjPtAotPG7sIPEV7GcKzMQvG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/nav-footer.css">
+  <style>
+    .service-img-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(88,99,248,0.37),transparent); }
+    .ab-hero { position:relative; overflow:hidden; padding:200px 40px 120px; text-align:center; background:linear-gradient(160deg,#0d0f1a 0%,#131620 55%,#0e1615 100%); }
+    .ab-hero::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(88,99,248,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(88,99,248,0.05) 1px,transparent 1px); background-size:78px 78px; mask-image:radial-gradient(ellipse 75% 65% at 50% 45%,black 0%,transparent 78%); -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 45%,black 0%,transparent 78%); }
+    .ab-orb { position:absolute; border-radius:50%; pointer-events:none; }
+    .ab-orb-1 { width:620px; height:620px; background:radial-gradient(circle,rgba(88,99,248,0.13) 0%,transparent 70%); top:-160px; left:-120px; }
+    .ab-orb-2 { width:420px; height:420px; background:radial-gradient(circle,rgba(88,99,248,0.09) 0%,transparent 70%); bottom:-140px; right:-90px; }
+    .ab-hero-inner { position:relative; z-index:2; max-width:840px; margin:0 auto; }
+    .ab-hero h1 { font-size:clamp(42px,7vw,86px); font-weight:600; line-height:1.03; letter-spacing:-0.02em; margin:18px 0 24px; }
+    .ab-hero h1 em { font-style:italic; color:var(--main); }
+    .ab-hero p { font-size:17px; font-weight:300; color:rgba(255,255,255,0.5); line-height:1.7; max-width:560px; margin:0 auto; }
+
+    .ab-company { padding:120px 80px; background:linear-gradient(180deg,var(--black) 0%,#0e1218 100%); }
+    .ab-company-grid { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:0.85fr 1.15fr; gap:80px; align-items:start; }
+    .ab-company h2 { font-size:clamp(30px,3.6vw,46px); font-weight:600; line-height:1.12; margin-top:14px; }
+    .ab-company h2 em { font-style:italic; color:var(--main); }
+    .ab-company p { font-size:16px; font-weight:300; color:rgba(255,255,255,0.55); line-height:1.85; margin-bottom:22px; }
+    .ab-company p:last-child { margin-bottom:0; }
+
+    .ab-values { padding:0 80px 120px; background:#0e1218; }
+    .ab-values-grid { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .ab-value { padding:30px 26px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.025); border-radius:16px; transition:border-color .25s, background .25s, transform .25s; }
+    .ab-value:hover { border-color:rgba(88,99,248,0.28); background:rgba(88,99,248,0.05); transform:translateY(-4px); }
+    .ab-value-icon { width:44px; height:44px; border-radius:12px; background:rgba(88,99,248,0.12); border:1px solid rgba(88,99,248,0.2); display:flex; align-items:center; justify-content:center; color:var(--main); font-size:16px; margin-bottom:18px; }
+    .ab-value h3 { font-size:16px; font-weight:500; margin-bottom:10px; }
+    .ab-value p { font-size:13.5px; font-weight:300; color:rgba(255,255,255,0.48); line-height:1.7; }
+
+    .ab-founder { padding:120px 80px; background:linear-gradient(180deg,#0e1218 0%,#0d0f1a 100%); }
+    .ab-founder-grid { max-width:1140px; margin:0 auto; display:grid; grid-template-columns:0.9fr 1.1fr; gap:72px; align-items:center; }
+    .ab-photo-wrap { position:relative; }
+    .ab-photo-wrap::after { content:''; position:absolute; inset:-14px -14px 20px 20px; border:1px solid rgba(88,99,248,0.28); border-radius:20px; z-index:0; }
+    .ab-photo { position:relative; z-index:1; width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:18px; display:block; background:rgba(255,255,255,0.04); filter:saturate(1.02) contrast(1.02); }
+    .ab-founder h2 { font-size:clamp(30px,3.6vw,50px); font-weight:600; line-height:1.08; margin:14px 0 8px; }
+    .ab-founder h2 em { font-style:italic; color:var(--main); }
+    .ab-founder-name { font-size:20px; font-weight:500; color:var(--white); margin-bottom:4px; }
+    .ab-founder-role { font-size:11px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--main); margin-bottom:26px; }
+    .ab-founder p { font-size:16px; font-weight:300; color:rgba(255,255,255,0.55); line-height:1.85; margin-bottom:20px; }
+    .ab-founder-socials { display:flex; gap:10px; margin-top:30px; flex-wrap:wrap; align-items:center; }
+    .ab-icon-btn { width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,0.09); background:rgba(255,255,255,0.03); color:rgba(255,255,255,0.55); display:inline-flex; align-items:center; justify-content:center; text-decoration:none; transition:all .25s; }
+    .ab-icon-btn:hover { color:var(--main); border-color:rgba(88,99,248,0.4); transform:translateY(-2px); }
+
+    .ab-cta { position:relative; overflow:hidden; padding:130px 40px; text-align:center; background:linear-gradient(160deg,#0d0f1a 0%,#141824 60%,#0e1615 100%); }
+    .ab-cta-inner { position:relative; z-index:2; max-width:720px; margin:0 auto; }
+    .ab-cta h2 { font-size:clamp(30px,4.6vw,56px); font-weight:600; line-height:1.1; margin-bottom:20px; }
+    .ab-cta h2 em { font-style:italic; color:var(--main); }
+    .ab-cta p { font-size:16px; font-weight:300; color:rgba(255,255,255,0.5); margin-bottom:40px; }
+
+    @media(max-width:1000px){ .ab-values-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:900px){
+      .ab-hero{padding:150px 24px 90px;}
+      .ab-company{padding:80px 24px;} .ab-company-grid{grid-template-columns:1fr;gap:36px;}
+      .ab-values{padding:0 24px 80px;}
+      .ab-founder{padding:80px 24px;} .ab-founder-grid{grid-template-columns:1fr;gap:44px;}
+      .ab-photo{max-width:400px;margin:0 auto;}
+      .ab-cta{padding:90px 24px;}
+    }
+    @media(max-width:560px){ .ab-values-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+<div id="nav-slot"></div>
+
+<section class="ab-hero">
+  <div class="ab-orb ab-orb-1"></div>
+  <div class="ab-orb ab-orb-2"></div>
+  <div class="ab-hero-inner reveal">
+    <span class="section-label" data-i18n="about.hero.label"></span>
+    <h1 data-i18n="about.hero.title"></h1>
+    <p data-i18n="about.hero.sub"></p>
+  </div>
+</section>
+
+<section class="ab-company">
+  <div class="ab-company-grid">
+    <div class="reveal">
+      <span class="section-label" data-i18n="about.company.label"></span>
+      <h2 data-i18n="about.company.title"></h2>
+    </div>
+    <div class="reveal">
+      <p data-i18n="about.company.p1"></p>
+      <p data-i18n="about.company.p2"></p>
+      <p data-i18n="about.company.p3"></p>
+    </div>
+  </div>
+</section>
+
+<section class="ab-values">
+  <div class="ab-values-grid">
+    <div class="ab-value reveal">
+      <div class="ab-value-icon"><i class="fa-solid fa-gem"></i></div>
+      <h3 data-i18n="about.v1.title"></h3>
+      <p data-i18n="about.v1.desc"></p>
+    </div>
+    <div class="ab-value reveal">
+      <div class="ab-value-icon"><i class="fa-solid fa-book-open"></i></div>
+      <h3 data-i18n="about.v2.title"></h3>
+      <p data-i18n="about.v2.desc"></p>
+    </div>
+    <div class="ab-value reveal">
+      <div class="ab-value-icon"><i class="fa-solid fa-diagram-project"></i></div>
+      <h3 data-i18n="about.v3.title"></h3>
+      <p data-i18n="about.v3.desc"></p>
+    </div>
+    <div class="ab-value reveal">
+      <div class="ab-value-icon"><i class="fa-solid fa-handshake"></i></div>
+      <h3 data-i18n="about.v4.title"></h3>
+      <p data-i18n="about.v4.desc"></p>
+    </div>
+  </div>
+</section>
+
+<section class="ab-founder">
+  <div class="ab-founder-grid">
+    <div class="ab-photo-wrap reveal">
+      <img class="ab-photo" src="assets/photo/founder.jpg" alt="Founder of TrueVue Studio"
+           onerror="this.src='';">
+           
+    </div>
+    <div class="reveal">
+      <span class="section-label" data-i18n="about.founder.label"></span>
+      <h2 data-i18n="about.founder.title"></h2>
+      <div class="ab-founder-name">Jasser Baya</div>
+      <div class="ab-founder-role" data-i18n="about.founder.role"></div>
+      <p data-i18n="about.founder.p1"></p>
+      <p data-i18n="about.founder.p2"></p>
+      <p data-i18n="about.founder.p3"></p>
+      <div class="ab-founder-socials">
+        <a class="btn-primary" href="Contact.html" data-i18n="about.founder.cta"></a>
+        <a class="ab-icon-btn" href="https://www.linkedin.com/company/truevue-studio/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a class="ab-icon-btn" href="https://www.instagram.com/truevuestudio/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a class="ab-icon-btn" href="mailto:Contact@truevuestudio.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ab-cta">
+  <div class="ab-orb ab-orb-2" style="left:-100px;right:auto;top:-100px;"></div>
+  <div class="ab-cta-inner reveal">
+    <h2 data-i18n="about.cta.title"></h2>
+    <p data-i18n="about.cta.sub"></p>
+    <a class="btn-primary" href="Contact.html" data-i18n="about.cta.btn"></a>
+  </div>
+</section>
+
+<div id="footer-slot"></div>
+<script src="js/i18n.js?v=3"></script>
+<script src="js/components.js?v=3"></script>
+</body>
+</html>

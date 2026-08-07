@@ -26,7 +26,7 @@
 
   const pageMap = {
     '': 'home', 'home': 'home', 'index': 'home',
-    'services': 'services', 'contact': 'contact',
+    'services': 'services', 'about': 'about', 'contact': 'contact',
   };
   const currentPage = pageMap[raw] || 'home';
 
