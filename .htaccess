@@ -16,35 +16,38 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 Options -Indexes
 ServerSignature Off
 
-# Block sensitive files only (NOT json — needed for testimonials)
 <FilesMatch "\.(env|md|log|gitignore)$">
     Require all denied
 </FilesMatch>
 
-# Block .env specifically (dotfiles)
 <FilesMatch "^\.env">
     Require all denied
 </FilesMatch>
 
+# ------------------------------------------------------------
+# 3. CLEAN URLS
+# ------------------------------------------------------------
+DirectoryIndex Home.html
 
+# 3a. Redirect /Home or /Home.html  ->  /   (root)
+RewriteCond %{THE_REQUEST} \s/+Home(\.html)?[\s?] [NC]
+RewriteRule ^ / [L,R=301]
 
+# 3b. Strip ".html" from the visible URL  (/About.html -> /About)
+RewriteCond %{THE_REQUEST} \s/+([^\s?]+)\.html[\s?] [NC]
+RewriteRule ^ /%1 [L,R=301]
+
+# 3c. Internally serve the .html file for the clean URL
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+?)/?$ /$1.html [L]
+
+# 404 fallback
+ErrorDocument 404 /Home.html
 
 # ------------------------------------------------------------
-# 4. LIVE MODE  ← uncomment this whole block when going live
-# ------------------------------------------------------------
- DirectoryIndex Home.html
-
- # Clean URLs (optional): /about → /About.html
- RewriteCond %{REQUEST_FILENAME} !-f
- RewriteCond %{REQUEST_FILENAME} !-d
- RewriteCond %{REQUEST_FILENAME}.html -f
- RewriteRule ^([^/]+)/?$ /$1.html [L]
-
- # 404 fallback
- ErrorDocument 404 /Home.html
-
-# ------------------------------------------------------------
-# 5. PERFORMANCE (active in both modes)
+# 4. PERFORMANCE
 # ------------------------------------------------------------
 <IfModule mod_expires.c>
     ExpiresActive On
@@ -62,4 +65,3 @@ ServerSignature Off
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/json
 </IfModule>
-
