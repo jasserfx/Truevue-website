@@ -1,7 +1,7 @@
 [
   {
     "stars": 5,
-    "text": "J’ai vraiment apprécié mon expérience avec True Vue Studio. Une équipe à l’écoute, professionnelle et très agréable. Je suis très satisfaite du résultat et surtout de la qualité du service. Merci pour votre travail et votre sérieux, je recommande avec plaisir ! ❤️",
+    "text": "J’ai vraiment apprécié mon expérience avec TrueVue Studio. Une équipe à l’écoute, professionnelle et très agréable. Je suis très satisfaite du résultat et surtout de la qualité du service. Merci pour votre travail et votre sérieux, je recommande avec plaisir ! ❤️",
     "avatar": "",
     "initials": "L",
     "name": "Linda Lahmer",
@@ -16,12 +16,12 @@
     "role": "CEO Coachini"
   },
 
-    {
-    "stars": 3,
-    "text": "TrueVue completely transformed how we present our brand. The visuals they produced stopped our audience mid-scroll and drove a 3× increase in engagement.",
-    "avatar": "",
-    "initials": "S",
-    "name": "Sawsen Dhifallah",
-    "role": "CEO Coachini"
-  }
+  //   {
+  //   "stars": 3,
+  //   "text": "TrueVue completely transformed how we present our brand. The visuals they produced stopped our audience mid-scroll and drove a 3× increase in engagement.",
+  //   "avatar": "",
+  //   "initials": "S",
+  //   "name": "Sawsen Dhifallah",
+  //   "role": "CEO Coachini"
+  // }
 ]
