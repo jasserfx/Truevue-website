@@ -132,18 +132,26 @@ body {
 }
 .testimonials-header { text-align: center; margin-bottom: 64px; }
 .testimonials-track {
-  display: flex;
-  gap: 24px;
-  overflow-x: auto;
+  display: block;
+  overflow: hidden;
   scrollbar-width: none;
   padding: 8px 4px 24px;
-  scroll-snap-type: x mandatory;
   max-width: 1400px;
   margin: 0 auto;
+}
+.testimonials-marquee {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 .testimonials-track::-webkit-scrollbar { display: none; }
 .testimonial-card {
   flex: 0 0 360px;
+  display: flex;
+  flex-direction: column;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.06);
   border-radius: 20px;
@@ -163,8 +171,11 @@ body {
   line-height: 1.7;
   color: rgba(255,255,255,0.8);
   margin-bottom: 28px;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
-.testimonial-author { display: flex; align-items: center; gap: 14px; }
+.testimonial-author { margin-top: auto; display: flex; align-items: center; gap: 14px; }
 .testimonial-avatar {
   width: 44px; height: 44px;
   border-radius: 50%;
